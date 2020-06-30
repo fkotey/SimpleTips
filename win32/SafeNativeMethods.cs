@@ -9,7 +9,7 @@ using System.Text;
 using System.Runtime.InteropServices;
 
 
-namespace WindowsFormsApp1
+namespace SimpleTips
 {
     internal static class SafeNativeMethods
     {

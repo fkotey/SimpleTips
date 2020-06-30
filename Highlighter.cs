@@ -8,7 +8,7 @@ using System.Threading;
 using System.Threading.Tasks;
 using UIAutomationClient;
 
-namespace WindowsFormsApp1
+namespace SimpleTips
 {
     public struct DrawItem
     {
@@ -39,6 +39,7 @@ namespace WindowsFormsApp1
         public Highlighter(DrawItem _item)
         {
             hightlights.Add(this);
+            _rectangle.Color = Color.Red;
             updateData(_item);
             
         }
@@ -53,7 +54,7 @@ namespace WindowsFormsApp1
             }
             else
             {
-                _rectangle.Location = Rectangle.FromLTRB(_item.rect.left, _item.rect.top + verticalPadding , _item.rect.left, _item.rect.bottom - verticalPadding);
+                _rectangle.Location = Rectangle.FromLTRB(_item.rect.left+5, _item.rect.top + verticalPadding , _item.rect.left+5, _item.rect.bottom - verticalPadding);
             }
         }
         public void DrawRectangle(DrawItem _item)

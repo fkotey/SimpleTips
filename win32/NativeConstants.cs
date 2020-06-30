@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WindowsFormsApp1
+namespace SimpleTips
 {
     internal class NativeConstants
     {

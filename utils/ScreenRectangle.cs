@@ -21,9 +21,9 @@ using System.Collections.Generic;
 using System.Text;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Threading;
 
-
-namespace WindowsFormsApp1
+namespace SimpleTips
 {
     /// <summary>
     /// Class for drawing screen rectangle.
@@ -43,6 +43,7 @@ namespace WindowsFormsApp1
             //initialize the form
             this._form = new Form();
 
+            //Thread.CurrentThread.IsBackground = true;
             _form.FormBorderStyle = FormBorderStyle.None;
             _form.ShowInTaskbar = false;
             _form.TopMost = true;
@@ -51,6 +52,7 @@ namespace WindowsFormsApp1
             _form.Top = 0;
             _form.Width = 1;
             _form.Height = 1;
+            _form.UseWaitCursor = false;
             _form.Show();
             _form.Hide();
             _form.Opacity = 0.2;
@@ -121,6 +123,8 @@ namespace WindowsFormsApp1
         {
 //            SafeNativeMethods.SetWindowPos(this._leftForm.Handle, NativeMethods.HWND_TOPMOST, this._location.Left - this._width, this._location.Top, this._width, this._location.Height, 0x10);
             SafeNativeMethods.SetWindowPos(this._form.Handle, NativeConstants.HWND_TOPMOST, this._location.X, this._location.Y, this._location.Width, this._location.Height, 0x10);
+            Visible = false;
+            Visible = true;
         }
 
         #region IDisposable Members

@@ -21,7 +21,7 @@ using System.Text;
 using System.Drawing;
 using System.Windows.Forms;
 
-namespace WindowsFormsApp1
+namespace SimpleTips
 {
     /// <summary>
     /// This class is responsible to draw bounding rectangle around some location on the screen.

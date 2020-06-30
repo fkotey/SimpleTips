@@ -7,7 +7,7 @@ using System.Windows.Forms;
 using UIAutomationClient;
 
 
-namespace WindowsFormsApp1
+namespace SimpleTips
 {
     class UIOperator
     {
@@ -32,10 +32,29 @@ namespace WindowsFormsApp1
         }
 
         private IUIAutomationElement pane;
+        public delegate void UIScanedEventHandler(object source, EventArgs args);
+        public event UIScanedEventHandler UIScanned;
 
-        public void execute()
+        protected virtual void onUIScanned()
+        {
+            if (UIScanned != null)
+            {
+                UIScanned.Raise(this, EventArgs.Empty);
+                return;
+                var delegates = UIScanned.GetInvocationList();
+                for (var i = 0; i < delegates.Length; i++)
+                    ((UIScanedEventHandler)delegates[i]).BeginInvoke(this, EventArgs.Empty, null, null);
+                
+            }
+                
+        }
+        public void executeInThread()
         {
 
+        }
+        public List<DrawItem> execute()
+        {
+          
             List<DrawItem> items = new List<DrawItem>();
 
             IUIAutomationElement boxToBorder;
@@ -65,8 +84,8 @@ namespace WindowsFormsApp1
 
             if (exit)
             {
-                Highlighter.BufferList(new List<DrawItem>());
-                return;
+                //Highlighter.BufferList(new List<DrawItem>());
+                return items;
             }
 
             IUIAutomationElement windowApp = _automation.ElementFromHandle(storeHwnd);
@@ -82,10 +101,10 @@ namespace WindowsFormsApp1
                     {
                         conditionArray[0] = _automation.CreatePropertyCondition(UIA_PropertyIds.UIA_NamePropertyId, "Auto-Configure for Material");
                         boxToBorder = settingsPanel.FindFirst(TreeScope.TreeScope_Descendants, conditionArray[0]);
-                        items.Add(new DrawItem(true, boxToBorder.CurrentBoundingRectangle, Color.Orange));
+                        items.Add(new DrawItem(false, boxToBorder.CurrentBoundingRectangle, Color.Orange));
                         conditionArray[0] = _automation.CreatePropertyCondition(UIA_PropertyIds.UIA_NamePropertyId, "Auto-Configure for Print Quality");
                         boxToBorder = settingsPanel.FindFirst(TreeScope.TreeScope_Descendants, conditionArray[0]);
-                        items.Add(new DrawItem(true, boxToBorder.CurrentBoundingRectangle, Color.Blue));
+                        items.Add(new DrawItem(false, boxToBorder.CurrentBoundingRectangle, Color.Blue));
 
                         pane = this.GetSettingsMainPane(settingsPanel);
                         var rowElement = GetRowOfTabs(settingsPanel);
@@ -153,16 +172,19 @@ namespace WindowsFormsApp1
 
                     watch.Stop();
                     int timeout = (1000 / 75) - (int)watch.ElapsedMilliseconds;
+                  
                 //Thread.Sleep(timeout);
-               
-                
-            }
-            Highlighter.BufferList(items);
-            
-            
-            
-        }
 
+
+            }
+            //Highlighter.BufferList(items);
+            return items;
+            // grab the context from the state
+            
+       
+
+        }
+     
         public IUIAutomationElement GetSettingsMainPane(IUIAutomationElement rootElement)
         {
             IUIAutomationCondition[] conditionArray = new IUIAutomationCondition[2];
