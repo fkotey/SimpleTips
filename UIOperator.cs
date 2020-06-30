@@ -23,7 +23,7 @@ namespace SimpleTips
         const string SPEEDS = "Speeds";
         const string OTHER = "Others";
         const string ADVANCED = "Advanced";
-
+        
         IUIAutomation _automation;
 
         public UIOperator()
@@ -90,7 +90,7 @@ namespace SimpleTips
 
             IUIAutomationElement windowApp = _automation.ElementFromHandle(storeHwnd);
                 IUIAutomationCondition[] conditionArray = new IUIAutomationCondition[1];
-                conditionArray[0] = _automation.CreatePropertyCondition(UIAutomationClient.UIA_PropertyIds.UIA_NamePropertyId, "FFF Settings");
+                conditionArray[0] = _automation.CreatePropertyCondition(UIA_PropertyIds.UIA_NamePropertyId, "FFF Settings");
                 IUIAutomationCondition conditions = _automation.CreateAndConditionFromArray(conditionArray);
                 IUIAutomationElement settingsPanel = windowApp.FindFirst(TreeScope.TreeScope_Children, conditionArray[0]);
 
