@@ -44,12 +44,21 @@ namespace WindowsFormsApp1
            
                 watch.Reset();
                 watch.Start();
+            IntPtr storeHwnd = IntPtr.Zero;
+            foreach (Process proc in Process.GetProcesses())
+            {
+               if(proc.MainWindowTitle.StartsWith("Simplify3D"))
+               {
+                  storeHwnd = proc.MainWindowHandle;
+                  
+               }
+            }
 
-                IntPtr storeHwnd = NativeMethods.FindWindow("Qt5QWindowIcon", "Simplify3D (Licensed to mark kalender)");
+               // IntPtr storeHwnd = NativeMethods.FindWindow ("Qt5QWindowIcon", "Simplify3D (Licensed to ...)");
                 IntPtr fffSetings = NativeMethods.FindWindow("Qt5QWindowIcon", "FFF settings");
 
             bool exit = false;
-            if (storeHwnd == null)
+            if (storeHwnd == IntPtr.Zero)
                 exit = true;
             if (storeHwnd != NativeMethods.GetForegroundWindow() && fffSetings != NativeMethods.GetForegroundWindow())
                 exit = true;

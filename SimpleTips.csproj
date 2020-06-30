@@ -33,7 +33,7 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <PropertyGroup>
-    <ApplicationIcon>simple.ico</ApplicationIcon>
+    <ApplicationIcon>Resources\simple.ico</ApplicationIcon>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
@@ -96,8 +96,7 @@
     </COMReference>
   </ItemGroup>
   <ItemGroup>
-    <None Include="Resources\Icon.ico" />
-    <Content Include="simple.ico" />
+    <Content Include="Resources\simple.ico" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
